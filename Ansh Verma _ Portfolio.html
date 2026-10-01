@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ansh Verma | AI and full-stack engineer</title>
+<meta name="description" content="Portfolio of Ansh Verma, a computer science undergraduate at IIIT Nagpur building RAG, LLM and computer vision products with full-stack frontends.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F4FF;
+    --bg-glow-1: rgba(109, 74, 255, 0.20);
+    --bg-glow-2: rgba(0, 163, 215, 0.16);
+    --surface: rgba(255, 255, 255, 0.72);
+    --surface-solid: #FFFFFF;
+    --ink: #14122B;
+    --muted: #55537A;
+    --line: rgba(40, 30, 120, 0.13);
+    --a1: #6D4AFF;
+    --a2: #0092C4;
+    --accent-text: #5A3AEA;
+    --on-accent: #FFFFFF;
+    --glow: rgba(109, 74, 255, 0.14);
+    --track: rgba(40, 30, 120, 0.10);
+    --shadow: 0 1px 2px rgba(20, 18, 43, 0.05), 0 12px 32px -12px rgba(60, 40, 160, 0.18);
+    --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --body: "Geist", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #090A12;
+      --bg-glow-1: rgba(124, 92, 255, 0.28);
+      --bg-glow-2: rgba(45, 212, 255, 0.16);
+      --surface: rgba(255, 255, 255, 0.05);
+      --surface-solid: #12131F;
+      --ink: #EEF0FF;
+      --muted: #A3A8C7;
+      --line: rgba(255, 255, 255, 0.11);
+      --a1: #8F7BFF;
+      --a2: #3DD6FF;
+      --accent-text: #A99BFF;
+      --on-accent: #080915;
+      --glow: rgba(143, 123, 255, 0.20);
+      --track: rgba(255, 255, 255, 0.10);
+      --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 20px 40px -20px rgba(0, 0, 0, 0.7);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #090A12;
+    --bg-glow-1: rgba(124, 92, 255, 0.28);
+    --bg-glow-2: rgba(45, 212, 255, 0.16);
+    --surface: rgba(255, 255, 255, 0.05);
+    --surface-solid: #12131F;
+    --ink: #EEF0FF;
+    --muted: #A3A8C7;
+    --line: rgba(255, 255, 255, 0.11);
+    --a1: #8F7BFF;
+    --a2: #3DD6FF;
+    --accent-text: #A99BFF;
+    --on-accent: #080915;
+    --glow: rgba(143, 123, 255, 0.20);
+    --track: rgba(255, 255, 255, 0.10);
+    --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 20px 40px -20px rgba(0, 0, 0, 0.7);
+  }
+
+  html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 84px); scroll-behavior: smooth; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(900px 520px at 12% -8%, var(--bg-glow-1), transparent 70%),
+      radial-gradient(800px 480px at 95% 4%, var(--bg-glow-2), transparent 70%);
+    background-repeat: no-repeat;
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent-text); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible, input:focus-visible {
+    outline: 3px solid var(--a1);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 22px; }
+
+  /* floating nav */
+  .navbar { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); z-index: 20; margin: 14px 0 0; }
+  .nav-pill {
+    display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    padding: 8px 10px 8px 16px; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--line);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4);
+    box-shadow: var(--shadow);
+  }
+  .brand { font-family: var(--display); font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: 0.95rem; padding: 8px 14px; border-radius: 999px; }
+  .nav-links a:hover { color: var(--ink); background: var(--track); }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .icon-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--ink); display: grid; place-items: center; cursor: pointer; }
+  .icon-btn:hover { background: var(--track); }
+  .icon-btn svg { width: 18px; height: 18px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; font-family: var(--body); font-weight: 600; font-size: 0.98rem; padding: 11px 20px; border-radius: 999px; text-decoration: none; border: 1px solid transparent; cursor: pointer; }
+  .btn-primary { color: var(--on-accent); background: linear-gradient(120deg, var(--a1), var(--a2)); }
+  .btn-primary:hover { filter: brightness(1.08); }
+  .btn-ghost { color: var(--ink); border-color: var(--line); background: var(--surface); }
+  .btn-ghost:hover { border-color: var(--a1); }
+
+  /* hero */
+  .hero { padding: clamp(40px, 8vw, 96px) 0 clamp(32px, 5vw, 56px); }
+  .badge { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-size: 0.92rem; color: var(--muted); font-weight: 500; margin-bottom: 22px; }
+  .badge i { width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(120deg, var(--a1), var(--a2)); display: block; }
+  h1 {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(3.2rem, 12vw, 8rem); line-height: 0.92; letter-spacing: -0.045em;
+    margin: 0 0 clamp(24px, 4vw, 40px);
+    color: var(--ink);
+    background: linear-gradient(100deg, var(--ink) 0%, var(--ink) 38%, var(--a1) 72%, var(--a2) 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    padding-bottom: 0.06em;
+  }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 32px 44px; align-items: start; }
+  .lede { font-size: clamp(1.15rem, 2.2vw, 1.4rem); line-height: 1.5; color: var(--ink); margin: 0 0 26px; max-width: 30em; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* ranker */
+  .ranker { border-radius: 24px; padding: clamp(18px, 3vw, 26px); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+  .ranker h2 { font-family: var(--display); font-weight: 700; font-size: 1.3rem; letter-spacing: -0.015em; margin: 0 0 4px; }
+  .ranker .hint { margin: 0 0 14px; color: var(--muted); font-size: 0.97rem; }
+  .field { display: block; width: 100%; font: 500 1.05rem var(--body); color: var(--ink); background: var(--surface-solid); border: 1px solid var(--line); border-radius: 14px; padding: 13px 16px; }
+  .field::placeholder { color: var(--muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; }
+  .chip { font: 500 0.9rem var(--body); color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 5px 13px; cursor: pointer; }
+  .chip:hover { color: var(--ink); border-color: var(--a1); }
+  .results { list-style: none; margin: 12px 0 0; padding: 0; }
+  .results li { border-top: 1px solid var(--line); }
+  .results a { display: grid; grid-template-columns: minmax(0, 1fr) 120px; gap: 6px 18px; align-items: center; padding: 12px 2px; color: inherit; text-decoration: none; }
+  .results a:hover .r-title { color: var(--accent-text); }
+  .r-title { font-family: var(--display); font-weight: 700; font-size: 1.05rem; }
+  .r-kind { font-size: 0.85rem; color: var(--muted); margin-left: 8px; font-weight: 500; }
+  .r-text { display: block; color: var(--muted); font-size: 0.93rem; line-height: 1.45; margin-top: 1px; }
+  .r-matched { display: block; font-size: 0.86rem; color: var(--accent-text); margin-top: 3px; font-weight: 500; }
+  .meter { display: flex; align-items: center; gap: 10px; }
+  .track { flex: 1; height: 8px; background: var(--track); border-radius: 4px; overflow: hidden; }
+  .fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--a1), var(--a2)); border-radius: 4px; transition: width 0.8s cubic-bezier(.2,.7,.2,1); }
+  .score { font-weight: 600; font-size: 0.88rem; color: var(--muted); min-width: 2.2em; text-align: right; font-variant-numeric: tabular-nums; }
+  .empty { color: var(--muted); padding: 12px 2px 0; border-top: 1px solid var(--line); margin: 12px 0 0; }
+
+  /* sections */
+  section { padding-top: clamp(48px, 7vw, 88px); }
+  .sec-head { margin-bottom: 26px; }
+  h2.sec { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: -0.035em; line-height: 1; margin: 0 0 10px; }
+  .sec-sub { color: var(--muted); margin: 0; max-width: 34em; }
+
+  /* bento */
+  .bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
+  .tile {
+    position: relative; overflow: hidden; border-radius: 26px; padding: clamp(20px, 3vw, 30px);
+    background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    scroll-margin-top: 90px;
+  }
+  .tile::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.3s;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), var(--glow), transparent 62%);
+  }
+  .tile:hover::before { opacity: 1; }
+  .tile > * { position: relative; }
+  .c3 { grid-column: span 3; } .c4 { grid-column: span 4; } .c5 { grid-column: span 5; }
+  .c6 { grid-column: span 6; } .c7 { grid-column: span 7; } .c12 { grid-column: span 12; }
+
+  .stat .num { font-family: var(--display); font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; font-size: clamp(3rem, 7vw, 5.2rem); margin: 0 0 10px;
+    background: linear-gradient(110deg, var(--a1), var(--a2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; padding-bottom: 0.05em; }
+  .stat p { margin: 0; color: var(--muted); max-width: 22em; }
+  .stat strong { color: var(--ink); font-weight: 600; }
+
+  /* projects */
+  .p-wide { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 24px 36px; align-items: center; }
+  .tile h3 { font-family: var(--display); font-weight: 700; font-size: clamp(1.4rem, 2.6vw, 1.8rem); letter-spacing: -0.025em; line-height: 1.1; margin: 0 0 6px; }
+  .sub { color: var(--muted); margin: 0 0 14px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 16px; padding: 0; list-style: none; }
+  .pills li { font-size: 0.85rem; font-weight: 500; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--track); color: var(--ink); }
+  ul.plain { margin: 0; padding-left: 1.15em; }
+  ul.plain li { margin: 0 0 9px; }
+  ul.plain li::marker { color: var(--a1); }
+  .repo { margin: 18px 0 0; }
+  .art { width: 100%; height: auto; display: block; border-radius: 18px; border: 1px solid var(--line); background: var(--surface-solid); margin-bottom: 20px; }
+  .p-wide .art { margin-bottom: 0; }
+  .f1 { fill: var(--a1); } .f2 { fill: var(--a2); } .ft { fill: var(--track); } .fm { fill: var(--muted); } .fi { fill: var(--ink); }
+  .s1 { stroke: var(--a1); fill: none; } .s2 { stroke: var(--a2); fill: none; } .sl { stroke: var(--line); fill: none; }
+  .svt { font-family: var(--body); font-weight: 600; font-size: 10px; fill: var(--on-accent); }
+
+  /* timeline */
+  .timeline { position: relative; display: grid; gap: 16px; padding-left: 34px; }
+  .timeline::before { content: ""; position: absolute; left: 9px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(var(--a1), var(--a2)); opacity: 0.5; border-radius: 2px; }
+  .timeline .tile::after { content: ""; position: absolute; left: -33px; top: 30px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 3px solid var(--a1); }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 20px; flex-wrap: wrap; margin-bottom: 4px; }
+  .when { color: var(--muted); font-weight: 500; font-size: 0.95rem; margin: 0; }
+  .role { color: var(--accent-text); font-weight: 600; margin: 0 0 14px; }
+
+  /* skills */
+  .skill-group h3 { font-size: 1.1rem; margin-bottom: 14px; }
+  .skill-group .pills { margin: 0; }
+
+  .list-tile h3 { font-size: 1.3rem; margin-bottom: 14px; }
+  .list-tile .meta { color: var(--muted); font-size: 0.95rem; }
+
+  .contact-tile { background: linear-gradient(125deg, var(--a1), var(--a2)); border-color: transparent; color: var(--on-accent); text-align: left; }
+  .contact-tile::before { display: none; }
+  .contact-tile h2 { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 5vw, 3.4rem); letter-spacing: -0.035em; line-height: 1; margin: 0 0 10px; }
+  .contact-tile p { margin: 0 0 22px; max-width: 30em; opacity: 0.92; }
+  .contact-tile .mail { display: inline-block; font-family: var(--display); font-weight: 700; font-size: clamp(1.2rem, 3.6vw, 2rem); letter-spacing: -0.02em; color: var(--on-accent); word-break: break-word; margin-bottom: 18px; }
+  .contact-tile .links { display: flex; gap: 12px; flex-wrap: wrap; }
+  .contact-tile .links a { color: var(--on-accent); border: 1px solid currentColor; border-radius: 999px; padding: 9px 20px; font-weight: 600; text-decoration: none; }
+  .contact-tile .links a:hover { background: rgba(255, 255, 255, 0.18); }
+  footer { padding: 36px 0 44px; color: var(--muted); font-size: 0.93rem; }
+
+  /* hero load sequence (the one orchestrated moment) */
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .seq > * { animation: rise 0.7s cubic-bezier(.2,.7,.2,1) both; }
+  .seq > *:nth-child(1) { animation-delay: 0.05s; }
+  .seq > *:nth-child(2) { animation-delay: 0.15s; }
+  .seq > *:nth-child(3) { animation-delay: 0.3s; }
+
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .p-wide { grid-template-columns: 1fr; }
+    .c3, .c4, .c5, .c6, .c7 { grid-column: span 12; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .results a { grid-template-columns: 1fr; }
+    .stat .num { font-size: 3.4rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .seq > * { animation: none; }
+    .fill, .tile::before { transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="navbar">
+    <div class="nav-pill">
+      <a class="brand" href="#top">Ansh Verma</a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#highlights">Highlights</a>
+        <a href="#work">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+      </nav>
+      <div class="nav-right">
+        <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg>
+        </button>
+        <a class="btn btn-primary" href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+    <div class="hero">
+      <div class="seq">
+        <div class="badge"><i></i>B.Tech CSE at IIIT Nagpur, class of 2028</div>
+        <h1>Ansh Verma</h1>
+        <div class="hero-grid">
+          <div>
+            <p class="lede">I build full-stack AI products, from LLM and RAG pipelines to REST APIs and React and Next.js frontends, and I like taking an idea from whiteboard to a working prototype.</p>
+            <div class="cta">
+              <a class="btn btn-primary" href="#work">See my projects</a>
+              <a class="btn btn-ghost" href="mailto:av6183781@gmail.com">Email me</a>
+            </div>
+          </div>
+          <div class="ranker">
+            <h2>Search my work</h2>
+            <p class="hint">Type a skill, tool or topic. My projects and internships are scored against it, best match first.</p>
+            <input id="q" class="field" type="search" value="RAG" placeholder="Try RAG, Docker, testing, computer vision" autocomplete="off" spellcheck="false" aria-label="Search projects and experience">
+            <div class="chips" role="group" aria-label="Example searches">
+              <button class="chip" type="button" data-q="RAG">RAG</button>
+              <button class="chip" type="button" data-q="Docker">Docker</button>
+              <button class="chip" type="button" data-q="testing">testing</button>
+              <button class="chip" type="button" data-q="computer vision">computer vision</button>
+              <button class="chip" type="button" data-q="FastAPI">FastAPI</button>
+              <button class="chip" type="button" data-q="CI/CD">CI/CD</button>
+            </div>
+            <ul id="results" class="results" aria-live="polite"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="highlights" aria-labelledby="hl-h">
+      <div class="sec-head">
+        <h2 class="sec" id="hl-h">Results so far</h2>
+        <p class="sec-sub">A few numbers from projects and internships.</p>
+      </div>
+      <div class="bento">
+        <div class="tile stat c7"><p class="num">100,000+</p><p><strong>Candidates ranked</strong> in NexusHire, inside a ~4GB memory footprint on CPU-only infrastructure.</p></div>
+        <div class="tile stat c5"><p class="num">35%</p><p><strong>Less manual lookup</strong> after shipping a RAG feature at Sinfralogix.</p></div>
+        <div class="tile stat c5"><p class="num">95%</p><p><strong>Code coverage</strong> from 200+ Selenium tests at OpenText.</p></div>
+        <div class="tile stat c7"><p class="num">650+</p><p><strong>LeetCode problems solved</strong> across trees, graphs, dynamic programming, greedy and binary search.</p></div>
+      </div>
+    </section>
+
+    <section id="work" aria-labelledby="work-h">
+      <div class="sec-head">
+        <h2 class="sec" id="work-h">Projects</h2>
+        <p class="sub" style="margin:0">Three products, each taken from data to a deployable app.</p>
+      </div>
+      <div class="bento">
+        <article class="tile c12" id="nexushire">
+          <div class="p-wide">
+            <div>
+              <h3>NexusHire</h3>
+              <p class="sub">AI candidate ranking engine</p>
+              <ul class="pills"><li>Python</li><li>FastAPI</li><li>Next.js</li><li>Docker</li></ul>
+              <ul class="plain">
+                <li>Scaled a 0-to-1 ranking platform to 100,000+ candidates in ~4GB on CPU-only infrastructure, by precomputing embeddings and building BM25 indexes.</li>
+                <li>Improved match relevance across five factors (skills, career fit, experience, location, education) by blending semantic embeddings, BM25 and lexical overlap in a configurable weighted model.</li>
+                <li>Delivered dashboard, search and candidate browser views on FastAPI REST APIs, plus resume fraud and coherence detection.</li>
+              </ul>
+              <p class="repo"><a class="btn btn-ghost" href="https://github.com/ansh049/NexusHire--Ranker-Engine" rel="noopener" target="_blank" aria-label="View code for NexusHire on GitHub">View code</a></p>
+            </div>
+            <svg class="art" viewBox="0 0 360 230" role="img" aria-label="Illustration of candidates ranked by score">
+              <rect x="20" y="18" width="320" height="30" rx="15" class="ft"/>
+              <circle cx="38" cy="33" r="6" class="s1" stroke-width="2"/><path d="M43 38l6 6" class="s1" stroke-width="2" stroke-linecap="round"/>
+              <rect x="62" y="29" width="90" height="8" rx="4" class="fm" opacity="0.5"/>
+              <g>
+                <circle cx="36" cy="82" r="11" class="f1"/><rect x="58" y="72" width="92" height="8" rx="4" class="fi"/><rect x="58" y="86" width="60" height="6" rx="3" class="fm" opacity="0.5"/>
+                <rect x="190" y="77" width="130" height="10" rx="5" class="ft"/><rect x="190" y="77" width="124" height="10" rx="5" class="f1"/>
+                <circle cx="36" cy="122" r="11" class="f2"/><rect x="58" y="112" width="80" height="8" rx="4" class="fi"/><rect x="58" y="126" width="70" height="6" rx="3" class="fm" opacity="0.5"/>
+                <rect x="190" y="117" width="130" height="10" rx="5" class="ft"/><rect x="190" y="117" width="98" height="10" rx="5" class="f1" opacity="0.85"/>
+                <circle cx="36" cy="162" r="11" class="f1" opacity="0.6"/><rect x="58" y="152" width="100" height="8" rx="4" class="fi"/><rect x="58" y="166" width="50" height="6" rx="3" class="fm" opacity="0.5"/>
+                <rect x="190" y="157" width="130" height="10" rx="5" class="ft"/><rect x="190" y="157" width="72" height="10" rx="5" class="f1" opacity="0.65"/>
+                <circle cx="36" cy="202" r="11" class="f2" opacity="0.6"/><rect x="58" y="192" width="70" height="8" rx="4" class="fi"/><rect x="58" y="206" width="64" height="6" rx="3" class="fm" opacity="0.5"/>
+                <rect x="190" y="197" width="130" height="10" rx="5" class="ft"/><rect x="190" y="197" width="44" height="10" rx="5" class="f1" opacity="0.45"/>
+              </g>
+            </svg>
+          </div>
+        </article>
+
+        <article class="tile c6" id="medical-chatbot">
+          <svg class="art" viewBox="0 0 360 170" role="img" aria-label="Illustration of a chatbot answering from retrieved documents">
+            <rect x="18" y="16" width="52" height="68" rx="8" class="ft"/><rect x="26" y="28" width="36" height="5" rx="2.5" class="fm" opacity="0.5"/><rect x="26" y="40" width="30" height="5" rx="2.5" class="fm" opacity="0.5"/><rect x="26" y="52" width="36" height="5" rx="2.5" class="fm" opacity="0.5"/>
+            <circle cx="104" cy="104" r="5" class="f2"/><circle cx="122" cy="118" r="4" class="f1"/><circle cx="138" cy="100" r="6" class="f1" opacity="0.7"/><circle cx="154" cy="122" r="4" class="f2" opacity="0.8"/>
+            <path d="M70 50 C 90 50, 96 90, 104 104" class="sl" stroke-width="1.5" stroke-dasharray="3 4"/>
+            <rect x="130" y="18" width="190" height="42" rx="16" class="f1"/><rect x="146" y="32" width="130" height="6" rx="3" fill="var(--on-accent)" opacity="0.9"/><rect x="146" y="44" width="90" height="6" rx="3" fill="var(--on-accent)" opacity="0.6"/>
+            <rect x="186" y="74" width="150" height="40" rx="16" class="ft"/><rect x="202" y="88" width="100" height="6" rx="3" class="fm" opacity="0.6"/><rect x="202" y="100" width="70" height="6" rx="3" class="fm" opacity="0.4"/>
+            <rect x="130" y="126" width="74" height="26" rx="13" class="f2"/><text x="167" y="143" text-anchor="middle" class="svt">grounded</text>
+          </svg>
+          <h3>Medical chatbot</h3>
+          <p class="sub">RAG question answering over medical PDFs</p>
+          <ul class="pills"><li>LangChain</li><li>Groq</li><li>Pinecone</li><li>Flask</li><li>AWS</li><li>Docker</li></ul>
+          <ul class="plain">
+            <li>Reduced hallucination risk with a RAG pipeline that chunks medical PDFs, embeds them with HuggingFace sentence-transformers and indexes them in Pinecone.</li>
+            <li>Connected Groq-hosted Llama 3.3 70B, Mistral and Gemma through LangChain, so answers come from retrieved context across three models.</li>
+            <li>Automated deployment of the Flask app with GitHub Actions, Docker, Amazon ECR and EC2.</li>
+          </ul>
+          <p class="repo"><a class="btn btn-ghost" href="https://github.com/ansh049/Medical-Chatbot-using-Langchain-Generative-AI" rel="noopener" target="_blank" aria-label="View code for Medical chatbot on GitHub">View code</a></p>
+        </article>
+
+        <article class="tile c6" id="safety-monitoring">
+          <svg class="art" viewBox="0 0 360 170" role="img" aria-label="Illustration of detection boxes around workers wearing safety gear">
+            <rect x="0" y="128" width="360" height="42" class="ft" opacity="0.7"/>
+            <g>
+              <circle cx="96" cy="64" r="13" class="fm" opacity="0.55"/><rect x="80" y="80" width="32" height="52" rx="12" class="fm" opacity="0.4"/>
+              <path d="M82 58a14 14 0 0 1 28 0z" class="f2"/>
+              <rect x="66" y="36" width="66" height="104" rx="6" class="s2" stroke-width="2" stroke-dasharray="5 4"/>
+              <rect x="66" y="20" width="76" height="16" rx="8" class="f2"/><text x="104" y="31.5" text-anchor="middle" class="svt">helmet 0.92</text>
+            </g>
+            <g>
+              <circle cx="244" cy="60" r="13" class="fm" opacity="0.55"/><rect x="228" y="76" width="32" height="56" rx="12" class="fm" opacity="0.4"/>
+              <rect x="231" y="84" width="26" height="30" rx="6" class="f1"/>
+              <rect x="212" y="34" width="66" height="106" rx="6" class="s1" stroke-width="2" stroke-dasharray="5 4"/>
+              <rect x="212" y="18" width="68" height="16" rx="8" class="f1"/><text x="246" y="29.5" text-anchor="middle" class="svt">vest 0.88</text>
+            </g>
+            <rect x="296" y="96" width="50" height="34" rx="6" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="2 4"/>
+          </svg>
+          <h3>Industrial safety monitoring</h3>
+          <p class="sub">Real-time PPE and compliance detection</p>
+          <ul class="pills"><li>YOLOv8</li><li>ByteTrack</li><li>OpenCV</li><li>FastAPI</li><li>Streamlit</li><li>Docker</li></ul>
+          <ul class="plain">
+            <li>Detected 14 PPE and safety classes at 75.5% mAP@50 and 79.7% recall, training YOLOv8 on 30,765 images for 20 epochs (about 2.9 hours on a Tesla T4).</li>
+            <li>Added per-worker and site-wide compliance scoring, restricted-zone monitoring and fall-detection alerts with ByteTrack tracking.</li>
+            <li>Shipped a FastAPI service with a Streamlit dashboard and automated PDF and CSV compliance reports, containerized with Docker.</li>
+          </ul>
+          <p class="repo"><a class="btn btn-ghost" href="https://github.com/ansh049/AI-Based-Industrial-Safety-Monitoring-System" rel="noopener" target="_blank" aria-label="View code for Industrial safety monitoring on GitHub">View code</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="experience" aria-labelledby="exp-h">
+      <div class="sec-head">
+        <h2 class="sec" id="exp-h">Experience</h2>
+        <p class="sec-sub">Two internships, one on applied AI and one on software quality.</p>
+      </div>
+      <div class="timeline">
+        <article class="tile" id="sinfralogix">
+          <div class="job-head"><h3>Sinfralogix LLC</h3><p class="when">May to Jul 2026, remote</p></div>
+          <p class="role">Software Engineer Intern, On-Demand Systems and Applied AI</p>
+          <ul class="plain">
+            <li>Built and shipped a RAG-powered feature for an on-demand application using FastAPI and vector embeddings, improving answer relevance and cutting manual lookup time by 35%.</li>
+            <li>Developed LLM-driven automation pipelines with prompt engineering, lifting output accuracy by 25%.</li>
+            <li>Improved CI/CD and logging for AI-enabled production services, cutting deployment time by 30%.</li>
+          </ul>
+        </article>
+        <article class="tile" id="opentext">
+          <div class="job-head"><h3>OpenText Corporation</h3><p class="when">Oct to Dec 2025, Hyderabad</p></div>
+          <p class="role">Software Engineering Intern</p>
+          <ul class="plain">
+            <li>Built and ran 200+ unit and integration tests across staging and production with Selenium WebDriver, reaching 95% code coverage and reducing post-release defects by 30%.</li>
+            <li>Fixed 40+ high-impact UI and API defects using Protractor and Selenium, decreasing incidents by 15%.</li>
+            <li>Ran exploratory and usability testing on UX defects, improving user satisfaction by 10% across teams.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" aria-labelledby="skills-h">
+      <div class="sec-head">
+        <h2 class="sec" id="skills-h">Skills</h2>
+        <p class="sec-sub">What I work with day to day.</p>
+      </div>
+      <div class="bento">
+        <div class="tile skill-group c5"><h3>Languages</h3>
+          <ul class="pills"><li>Python</li><li>JavaScript</li><li>SQL</li><li>C++</li><li>Java</li><li>C</li></ul></div>
+        <div class="tile skill-group c7"><h3>Full stack</h3>
+          <ul class="pills"><li>React.js</li><li>Next.js</li><li>Node.js</li><li>Express.js</li><li>REST APIs</li><li>FastAPI</li><li>Flask</li><li>HTML5</li><li>CSS3</li></ul></div>
+        <div class="tile skill-group c7"><h3>AI and LLMs</h3>
+          <ul class="pills"><li>LLMs</li><li>Embeddings</li><li>Pinecone</li><li>RAG</li><li>Graph RAG</li><li>LangChain</li><li>NLP</li><li>Generative AI</li><li>Agentic AI</li><li>CrewAI</li><li>n8n</li><li>YOLOv8</li><li>Deep learning</li><li>Machine learning</li><li>Scikit-Learn</li><li>Pandas</li><li>NumPy</li></ul></div>
+        <div class="tile skill-group c5"><h3>Databases and tools</h3>
+          <ul class="pills"><li>MySQL</li><li>MongoDB</li><li>Docker</li><li>Git and GitHub</li><li>CI/CD</li><li>AWS EC2 and ECR</li><li>Selenium WebDriver</li></ul></div>
+      </div>
+    </section>
+
+    <section id="more" aria-labelledby="more-h">
+      <div class="sec-head">
+        <h2 class="sec" id="more-h">Certifications and achievements</h2>
+      </div>
+      <div class="bento">
+        <div class="tile list-tile c6">
+          <h3>Certifications</h3>
+          <ul class="plain">
+            <li>Google Cloud Gen AI Academy APAC 2026, Cohort 3 <span class="meta">(Google Cloud and Hack2skill)</span></li>
+            <li>Exploratory Data Analysis <span class="meta">(FutureSkills Prime, MeitY-NASSCOM), Jul 2026</span></li>
+            <li>National Space Day 2026 <span class="meta">(participation), Aug 2026</span></li>
+          </ul>
+        </div>
+        <div class="tile list-tile c6" id="dsa">
+          <h3>Achievements</h3>
+          <ul class="plain">
+            <li>Solved 650+ LeetCode problems across trees, graphs, dynamic programming, greedy and binary search.</li>
+            <li>Selected participant in the MarketWise AI/ML competition at IIIT Nagpur, building predictive models.</li>
+            <li>ESOC Hackathon: worked with a cross-functional team to prototype full-stack software.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-h">
+      <div class="tile contact-tile">
+        <h2 id="contact-h">Let's build something.</h2>
+        <p>Open to internships and projects in applied AI and full-stack engineering.</p>
+        <a class="mail" href="mailto:av6183781@gmail.com">av6183781@gmail.com</a>
+        <div class="links">
+          <a href="https://linkedin.com/in/ansh-verma-ab7410379" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/ansh049" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Ansh Verma, IIIT Nagpur</footer>
+</div>
+
+<script>
+(function () {
+  var ENTRIES = [
+    { id: 'nexushire', kind: 'Project', title: 'NexusHire',
+      text: 'Candidate ranking engine over 100,000+ profiles on CPU-only infrastructure.',
+      tags: 'python fastapi next.js nextjs react docker embeddings bm25 ranking search semantic nlp full stack dashboard rest api frontend backend relevance' },
+    { id: 'medical-chatbot', kind: 'Project', title: 'Medical chatbot',
+      text: 'RAG question answering over medical PDFs with Pinecone and Groq-hosted LLMs.',
+      tags: 'rag llm langchain groq pinecone flask aws docker ci/cd github actions ecr ec2 embeddings vector database generative ai nlp deployment llama mistral gemma' },
+    { id: 'safety-monitoring', kind: 'Project', title: 'Industrial safety monitoring',
+      text: 'Real-time PPE detection and compliance scoring with YOLOv8 and ByteTrack.',
+      tags: 'computer vision yolov8 bytetrack opencv fastapi streamlit docker deep learning object detection tracking machine learning gpu reports' },
+    { id: 'sinfralogix', kind: 'Experience', title: 'Sinfralogix LLC',
+      text: 'Shipped a RAG feature and LLM automation pipelines as an applied AI intern.',
+      tags: 'rag llm fastapi embeddings vector prompt engineering automation ci/cd logging deployment production applied ai internship' },
+    { id: 'opentext', kind: 'Experience', title: 'OpenText Corporation',
+      text: 'Automated and manual testing of UI and API behaviour with Selenium and Protractor.',
+      tags: 'testing selenium webdriver protractor qa unit integration coverage defects usability ux api internship automation' },
+    { id: 'dsa', kind: 'Achievement', title: 'Problem solving',
+      text: '650+ LeetCode problems across trees, graphs, DP, greedy and binary search.',
+      tags: 'dsa leetcode algorithms data structures trees graphs dynamic programming greedy binary search competitive hackathon' }
+  ];
+
+  var input = document.getElementById('q');
+  var list = document.getElementById('results');
+  var firstRender = true;
+
+  function words(s) { return s.toLowerCase().split(/[^a-z0-9.+#\/]+/).filter(Boolean); }
+  function count(ws, t) {
+    var n = 0;
+    for (var i = 0; i < ws.length; i++) {
+      var w = ws[i];
+      if (w === t || (t.length >= 4 && w.indexOf(t) === 0)) n++;
+    }
+    return n;
+  }
+  function rank(query) {
+    var terms = words(query);
+    if (!terms.length) return null;
+    var out = [];
+    ENTRIES.forEach(function (e) {
+      var tagWords = words(e.tags);
+      var textWords = words(e.title + ' ' + e.text);
+      var score = 0, matched = [];
+      terms.forEach(function (t) {
+        var s = count(tagWords, t) * 3 + count(textWords, t);
+        if (s > 0) { score += s; if (matched.indexOf(t) < 0) matched.push(t); }
+      });
+      if (score > 0) out.push({ e: e, score: score, matched: matched });
+    });
+    out.sort(function (a, b) { return b.score - a.score; });
+    return out;
+  }
+  function esc(s) { return s.replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+
+  function render() {
+    var res = rank(input.value);
+    if (res === null) { list.innerHTML = '<li class="empty">Type a skill, tool or topic to see what matches.</li>'; return; }
+    if (!res.length) { list.innerHTML = '<li class="empty">Nothing matches that yet. Try a tool name such as Docker, or a topic such as testing.</li>'; return; }
+    var max = res[0].score;
+    list.innerHTML = res.map(function (r) {
+      var pct = Math.round((r.score / max) * 100);
+      return '<li><a href="#' + r.e.id + '">' +
+        '<span><span class="r-title">' + esc(r.e.title) + '</span><span class="r-kind">' + r.e.kind + '</span>' +
+        '<span class="r-text">' + esc(r.e.text) + '</span>' +
+        '<span class="r-matched">Matched: ' + r.matched.map(esc).join(', ') + '</span></span>' +
+        '<span class="meter"><span class="track"><span class="fill" data-w="' + pct + '"></span></span>' +
+        '<span class="score">' + r.score + '</span></span></a></li>';
+    }).join('');
+    var fills = list.querySelectorAll('.fill');
+    var set = function () { for (var i = 0; i < fills.length; i++) fills[i].style.width = fills[i].getAttribute('data-w') + '%'; };
+    if (firstRender) { firstRender = false; setTimeout(function () { requestAnimationFrame(set); }, 500); }
+    else set();
+  }
+  input.addEventListener('input', render);
+  document.querySelectorAll('.chip').forEach(function (b) {
+    b.addEventListener('click', function () { input.value = b.getAttribute('data-q'); render(); });
+  });
+  render();
+
+  // cursor spotlight on tiles (answers the pointer, no idle motion)
+  document.querySelectorAll('.tile').forEach(function (t) {
+    t.addEventListener('pointermove', function (e) {
+      var r = t.getBoundingClientRect();
+      t.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      t.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+
+  // theme toggle: follows the system until the visitor picks one
+  var root = document.documentElement;
+  var btn = document.getElementById('theme');
+  try { var saved = localStorage.getItem('theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+  btn.addEventListener('click', function () {
+    var cur = root.getAttribute('data-theme');
+    if (!cur) cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    var next = cur === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>
